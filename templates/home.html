@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+        /* Estilos CSS podem ser adicionados aqui para personalização */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #2e3094;
+            color: #fff;
+            padding: 10 px 0;
+            text-align: center;
+        }
+        .btn-group {
+            margin-top: 10px;
+        }
+        .btn {
+            background-color:#02adee ;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #777;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img img src="{{ url_for('static', filename='logo.jpg') }}" alt="Logo" style="width: 555px; height: auto;">
+         <div class="btn-group">
+            <a href="/consulta" class="btn">Consultar</a>
+            <a href="/cadastro" class="btn">Cadastrar</a>
+            <a href="/" class="btn">Home</a>
+        </div>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Estilos CSS podem ser adicionados aqui para personalização */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #2e3094;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .btn-group {
+            margin-top: 10px;
+        }
+        .btn {
+            background-color: #02adee;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #777;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            text-align: center;
+        }
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label, input[type=text], input[type=submit] {
+            display: block;
+            margin: 10px auto;
+        }
+        input[type=text] {
+            padding: 10px;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        input[type=submit] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type=submit]:hover {
+            background-color: #0056b3;
+        }
+        p {
+            text-align: center;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            background-color: #fff;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .data-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img img src="{{ url_for('static', filename='logo.jpg') }}" alt="Logo" style="width: 100px; height: auto;">
+        <div class="btn-group">
+            <a href="consulta" class="btn">Consultar</a>
+            <a href="cadastro" class="btn">Cadastrar</a>
+            <a href="/" class="btn">Home</a>
+        </div>
+    </header>
+    <div class="container">
+        <h1>Consulta de Clientes, Obras e Compras</h1>
+        <form action="/consulta" method="POST">
+            <label for="cnpj">Digite o CNPJ:</label>
+            <input type="text" id="cnpj" name="cnpj">
+            <label for="os">Digite a OS da obra (opcional):</label>
+            <input type="text" id="os" name="os">
+            <input type="submit" value="Consultar">
+        </form>
+        {% if cliente %}
+        <div class="data-container">
+            <h2>Dados do Cliente:</h2>
+            <p>CNPJ: {{ cliente[0] }}</p>
+            <p>Primeiro Nome: {{ cliente[1] }}</p>
+            <p>Segundo Nome: {{ cliente[2] }}</p>
+            <p>E-mail: {{ cliente[3] }}</p>
+            <p>Telefone: {{ cliente[4] }}</p>
+            <p>Estado: {{ cliente[5] }}</p>
+            <p>Cidade: {{ cliente[6] }}</p>
+            <p>Bairro: {{ cliente[7] }}</p>
+            <p>Rua: {{ cliente[8] }}</p>
+            <p>Número: {{ cliente[9] }}</p>
+        </div>
+        {% if obras %}
+        <div class="data-container">
+            <h2>Obras:</h2>
+            <ul>
+                {% for obra in obras %}
+                <li>
+                    <p>OS: {{ obra[0] }}</p>
+                    <p>Primeiro Nome Contato: {{ obra[1] }}</p>
+                    <p>Segundo Nome Contato: {{ obra[2] }}</p>
+                    <p>Valor: {{ obra[3] }}</p>
+                    <p>Estado Obra: {{ obra[4] }}</p>
+                    <p>Cidade Obra: {{ obra[5] }}</p>
+                    <p>Bairro Obra: {{ obra[6] }}</p>
+                    <p>Rua Obra: {{ obra[7] }}</p>
+                    <p>Número Obra: {{ obra[8] }}</p>
+                    {% if compras %}
+                    <div class="data-container">
+                        <h3>Compras relacionadas:</h3>
+                        <ul>
+                            {% for compra in compras %}
+                            <li>
+                                <p>Ordem de Compra: {{ compra[1] }}</p>
+                                <p>Matéria Prima: {{ compra[2] }}</p>
+                                <p>Consumíveis: {{ compra[3] }}</p>
+                                <p>Miscelânea: {{ compra[4] }}</p>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% else %}
+        <p>Nenhuma obra encontrada.</p>
+        {% endif %}
+        {% elif mensagem %}
+        <p>{{ mensagem }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
